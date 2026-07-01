@@ -1,30 +1,30 @@
 # JSONPlaceholder API Testing
 
 ## Overview
-This project contains API test cases created with Postman for the JSONPlaceholder REST API.
+This project demonstrates API testing using Postman with the JSONPlaceholder REST API.
 
-## API Under Test
+## API Endpoint
 https://jsonplaceholder.typicode.com/posts
 
 ## Tools
 - Postman
-- JSONPlaceholder
+- JSONPlaceholder API
 
-## Test Scenario
-**GET /posts**
+## Requests
+- GET - List Posts
+- POST - Create Post
+- DELETE - Delete Post
 
-## Test Cases
-- Verify status code is 200
-- Verify response is an array
-- Verify response contains 100 posts
-- Verify required fields exist (userId, id, title, body)
-- Verify data types are correct
-- Verify response time is less than 1000 ms
-- Verify title is not empty
-- Verify body is not empty
+## Test Scenarios
+- Verify status codes (200, 201)
+- Validate response structure
+- Validate response data
+- Verify required fields
+- Verify data types
+- Verify response time
 
 ## Files
 - JSONPlaceholder API Testing.postman_collection.json
 
 ## Expected Result
-All test cases should pass successfully.
+All test cases pass successfully.
