@@ -1,0 +1,215 @@
+{
+  "info": {
+    "_postman_id": "64a3bc6a-5b0e-474b-96a7-7d63fff96481",
+    "name": "JSONPlaceholder API Testing",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56313405",
+    "_collection_link": "https://go.postman.co/collection/56313405-64a3bc6a-5b0e-474b-96a7-7d63fff96481?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET - List Posts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Parse Response\r",
+              "let response = pm.response.json();\r",
+              "\r",
+              "// 1. Status Code\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "// 2. Response is an Array\r",
+              "pm.test(\"Response is an array\", function () {\r",
+              "    pm.expect(response).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "// 3. Total Number of Posts\r",
+              "pm.test(\"There are 100 posts\", function () {\r",
+              "    pm.expect(response.length).to.eql(100);\r",
+              "});\r",
+              "\r",
+              "// 4. Required Fields\r",
+              "pm.test(\"First post has required fields\", function () {\r",
+              "    pm.expect(response[0]).to.have.property(\"userId\");\r",
+              "    pm.expect(response[0]).to.have.property(\"id\");\r",
+              "    pm.expect(response[0]).to.have.property(\"title\");\r",
+              "    pm.expect(response[0]).to.have.property(\"body\");\r",
+              "});\r",
+              "\r",
+              "// 5. Data Types\r",
+              "pm.test(\"First post has correct data types\", function () {\r",
+              "    pm.expect(response[0].userId).to.be.a(\"number\");\r",
+              "    pm.expect(response[0].id).to.be.a(\"number\");\r",
+              "    pm.expect(response[0].title).to.be.a(\"string\");\r",
+              "    pm.expect(response[0].body).to.be.a(\"string\");\r",
+              "});\r",
+              "\r",
+              "// 6. Response Time\r",
+              "pm.test(\"Response time is less than 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "// 7. Title is not Empty\r",
+              "pm.test(\"Title is not empty\", function () {\r",
+              "    pm.expect(response[0].title).to.not.be.empty;\r",
+              "});\r",
+              "\r",
+              "// 8. Body is not Empty\r",
+              "pm.test(\"Body is not empty\", function () {\r",
+              "    pm.expect(response[0].body).to.not.be.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST - Create Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "let response = pm.response.json();\r",
+              "\r",
+              "// 1. Status Code\r",
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "// 2. Response is Object\r",
+              "pm.test(\"Response is an object\", function () {\r",
+              "    pm.expect(response).to.be.an(\"object\");\r",
+              "});\r",
+              "\r",
+              "// 3. Title is correct\r",
+              "pm.test(\"Title is correct\", function () {\r",
+              "    pm.expect(response.title).to.eql(\"My First Post\");\r",
+              "});\r",
+              "\r",
+              "// 4. Response contains id\r",
+              "pm.test(\"Response contains id\", function () {\r",
+              "    pm.expect(response).to.have.property(\"id\");\r",
+              "});\r",
+              "\r",
+              "// 5. Response Time\r",
+              "pm.test(\"Response time is less than 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"My First Post\",\r\n  \"body\": \"Learning Postman\",\r\n  \"userId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE - Delete Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000 ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://jsonplaceholder.typicode.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "jsonplaceholder",
+            "typicode",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
